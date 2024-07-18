@@ -13,3 +13,4 @@ clinicalReasoningTest = { module = "org.opencds.cqf.fhir:cqf-fhir-test", version
 junitBom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junitJupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junitPlatform = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit" }
+skyscreamer = {  module = "org.skyscreamer:jsonassert", version = "1.5.1"}
