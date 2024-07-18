@@ -3,9 +3,11 @@
 
 [versions]
 clinical-reasoning = "latest.release"
+hapi-fhir = "6.10.5"
 junit = "latest.release"
 
 [libraries]
+hapiFhirDataStructures = { module="ca.uhn.hapi.fhir:hapi-fhir-structures-rf", version.ref = "hapi-fhir" }
 clinicalReasoning = { module = "org.opencds.cqf.fhir:cqf-fhir-cr", version.ref = "clinical-reasoning" }
 clinicalReasoningCql = { module = "org.opencds.cqf.fhir:cqf-fhir-cql", version.ref = "clinical-reasoning" }
 clinicalReasoningUtility = { module = "org.opencds.cqf.fhir:cqf-fhir-utility", version.ref = "clinical-reasoning" }

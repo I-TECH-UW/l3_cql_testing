@@ -18,6 +18,7 @@ dependencies {
     implementation(libs.clinicalReasoningCql)
     implementation(libs.clinicalReasoningUtility)
     implementation(libs.clinicalReasoningTest)
+    implementation(libs.hapiFhirDataStructures)
     implementation(platform(libs.junitBom))
     implementation(libs.junitJupiter)
     implementation(libs.junitPlatform)
