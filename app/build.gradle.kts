@@ -21,20 +21,12 @@ dependencies {
     implementation(libs.clinicalReasoningCql)
     implementation(libs.clinicalReasoningUtility)
     implementation(libs.clinicalReasoningTest)
-    implementation ("javax.xml.bind:jaxb-api:2.3.1")
-    implementation ("com.sun.xml.bind:jaxb-core:2.3.0.1")
-    implementation ("com.sun.xml.bind:jaxb-impl:2.3.3")
-    implementation ("javax.activation:activation:1.1.1")
+    implementation(libs.clinicalReasoningJackson)
+    implementation (libs.javax)
     implementation(platform(libs.junitBom))
     implementation(libs.junitJupiter)
     implementation(libs.junitPlatform)
     implementation(libs.skyscreamer)
-//    implementation ("info.cqframework:model-jackson:2.4.0")
-//    implementation("org.opencds.cqf.cql:evaluator.plandefinition:3.0.0-PRE4")
-//    implementation("org.opencds.cqf.cql:evaluator.jackson-deps:3.0.0-PRE4")
-//    implementation ("org.opencds.cqf.cql:evaluator.measure-hapi:3.0.0-PRE5")
-//    implementation ("ca.uhn.hapi.fhir:hapi-fhir-caching-api:6.4.4")
-//    implementation ("ca.uhn.hapi.fhir:hapi-fhir-caching-caffeine:6.4.4")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
