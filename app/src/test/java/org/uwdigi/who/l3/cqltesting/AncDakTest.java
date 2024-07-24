@@ -2,7 +2,6 @@ package org.uwdigi.who.l3.cqltesting;
 
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -15,7 +14,6 @@ import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.CanonicalType;
 import org.hl7.fhir.r4.model.MeasureReport;
-import org.hl7.fhir.r4.model.PlanDefinition;
 import org.junit.Test;
 import org.opencds.cqf.fhir.api.Repository;
 import org.opencds.cqf.fhir.cr.measure.MeasureEvaluationOptions;

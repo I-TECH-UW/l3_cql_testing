@@ -8,6 +8,7 @@ import ca.uhn.fhir.util.BundleUtil;
 import org.hl7.fhir.instance.model.api.IBaseBundle;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.instance.model.api.IIdType;
+import org.opencds.cqf.fhir.api.Repository;
 import org.opencds.cqf.fhir.utility.Ids;
 import org.opencds.cqf.fhir.utility.repository.InMemoryFhirRepository;
 import org.uwdigi.who.l3.cqltesting.matcher.L3ResourceMatcherR4;
@@ -24,6 +25,8 @@ import java.util.stream.Collectors;
 public class L3InMemoryFhirRepository extends InMemoryFhirRepository {
 
     private final Map<String, Map<IIdType, IBaseResource>> resourceMap;
+
+    private Repository repositoryProxy = null;
 
     public L3InMemoryFhirRepository(FhirContext context) {
         super(context);
@@ -75,7 +78,7 @@ public class L3InMemoryFhirRepository extends InMemoryFhirRepository {
         }
 
         // Apply the rest of the filters
-        var resourceMatcher = new L3ResourceMatcherR4();
+        var resourceMatcher = new L3ResourceMatcherR4(repositoryProxy != null ? repositoryProxy : this);
         for (var resource : candidates) {
             boolean include = true;
             for (var nextEntry : searchParameters.entrySet()) {
@@ -93,5 +96,13 @@ public class L3InMemoryFhirRepository extends InMemoryFhirRepository {
 
         builder.setType("searchset");
         return (B) builder.getBundle();
+    }
+
+    public Repository getRepositoryProxy() {
+        return repositoryProxy;
+    }
+
+    public void setRepositoryProxy(Repository repositoryProxy) {
+        this.repositoryProxy = repositoryProxy;
     }
 }

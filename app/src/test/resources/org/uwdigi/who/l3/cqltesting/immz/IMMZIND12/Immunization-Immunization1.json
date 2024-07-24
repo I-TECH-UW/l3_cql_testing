@@ -80,7 +80,7 @@
         "occurrenceDateTime": "2020-01-05",
         "protocolApplied": [
           {
-            "doseNumber": 1
+            "doseNumberPositiveInt": 1
           }
         ]
       }

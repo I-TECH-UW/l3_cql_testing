@@ -10,14 +10,24 @@ import ca.uhn.fhir.rest.param.UriParam;
 import org.apache.commons.lang3.NotImplementedException;
 import org.hl7.fhir.instance.model.api.IBase;
 import org.hl7.fhir.instance.model.api.IBaseResource;
+import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.CodeableConcept;
+import org.hl7.fhir.r4.model.Coding;
 import org.hl7.fhir.r4.model.ValueSet;
+import org.opencds.cqf.fhir.api.Repository;
 import org.opencds.cqf.fhir.utility.matcher.ResourceMatcherR4;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
 public class L3ResourceMatcherR4 extends ResourceMatcherR4 {
+
+    private final Repository repository;
+
+    public L3ResourceMatcherR4(Repository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public boolean matches(String name, List<IQueryParameterType> params, IBaseResource resource) {
@@ -93,14 +103,19 @@ public class L3ResourceMatcherR4 extends ResourceMatcherR4 {
     }
 
     public boolean isMatchCoding(TokenParam param, IBase pathResult) {
-        System.out.println("kkkk"+param);
         if (param.getModifier() == TokenParamModifier.IN) {
-            var codeConcept = getCoding(pathResult);
-            if (codeConcept.isEmpty()) {
-                return false;
+            var codeSet = getValueSet(param);
+
+            if (!(pathResult instanceof CodeableConcept) && !(pathResult instanceof Coding)) {
+                throw new RuntimeException("Attempted to match a non-code to a ValueSet");
             }
 
-            return isMatchListOfCodes(param.getSystem(), param.getValue(), codeConcept);
+            if (pathResult instanceof CodeableConcept) {
+                return ((CodeableConcept) pathResult).getCoding().stream().anyMatch(code -> isMatchListOfCodes(code.getSystem(), code.getCode(), codeSet));
+            }
+
+            var coding = (Coding) pathResult;
+            return isMatchListOfCodes(coding.getSystem(), coding.getCode(), codeSet);
         }
 
         var codes = getCodes(pathResult);
@@ -115,7 +130,6 @@ public class L3ResourceMatcherR4 extends ResourceMatcherR4 {
         for (var c : codes) {
             var matches = value.equals(c.getValue())
                     && (system == null || system.equals(c.getSystem()));
-            System.out.println(c.getValue()+ "ouw");
             if (matches) {
                 return true;
             }
@@ -124,20 +138,33 @@ public class L3ResourceMatcherR4 extends ResourceMatcherR4 {
         return false;
     }
 
-    protected List<TokenParam> getCoding(IBase pathResult) {
+    protected List<TokenParam> getValueSet(TokenParam param) {
         var resolvedCodes = new ArrayList<TokenParam>();
-        if (pathResult instanceof CodeableConcept) {
-            if (pathResult.isEmpty()) {
-                return resolvedCodes;
-            }
-            for (var concept : ((CodeableConcept) pathResult).getCoding()) {
-                if (concept.getCode() == null) {
-                    break;
-                }
-                String system = concept.getSystem();
-                String code = concept.getCode();
+        if (param.getValue() == null) {
+            return resolvedCodes;
+        }
 
-                resolvedCodes.add(new TokenParam(system, code));
+        var bundle = repository.search(Bundle.class, ValueSet.class, Map.of("url", List.of(new UriParam(param.getValue()))), null);
+        if (bundle.isEmpty() || bundle.getType() != Bundle.BundleType.SEARCHSET) {
+            return resolvedCodes;
+        }
+
+        for (var entry : bundle.getEntry()) {
+            if (!entry.hasResource() || !(entry.getResource() instanceof ValueSet)) {
+                continue;
+            }
+
+            var valueSet = (ValueSet) entry.getResource();
+            if (!valueSet.hasCompose() || !valueSet.getCompose().hasInclude()) {
+                continue;
+            }
+
+            for (var include : valueSet.getCompose().getInclude()) {
+                var system = include.getSystem();
+
+                for (var concept : include.getConcept()) {
+                    resolvedCodes.add(new TokenParam(system, concept.getCode()));
+                }
             }
         }
 

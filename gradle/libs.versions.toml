@@ -4,17 +4,16 @@
 [versions]
 clinical-reasoning = "latest.release"
 junit = "latest.release"
-sky-screamer = "1.5.1"
-javax-bind = "2.3.1"
 
 [libraries]
 clinicalReasoning = { module = "org.opencds.cqf.fhir:cqf-fhir-cr", version.ref = "clinical-reasoning" }
 clinicalReasoningCql = { module = "org.opencds.cqf.fhir:cqf-fhir-cql", version.ref = "clinical-reasoning" }
 clinicalReasoningUtility = { module = "org.opencds.cqf.fhir:cqf-fhir-utility", version.ref = "clinical-reasoning" }
 clinicalReasoningTest = { module = "org.opencds.cqf.fhir:cqf-fhir-test", version.ref = "clinical-reasoning" }
-clinicalReasoningJackson = {module = "org.opencds.cqf.fhir:cqf-fhir-jackson", version.ref = "clinical-reasoning"}
+clinicalReasoningJackson = { module = "org.opencds.cqf.fhir:cqf-fhir-jackson", version.ref = "clinical-reasoning"}
+hamcrest = { module = "org.hamcrest:hamcrest", version = "latest.release" }
+javax = { module = "javax.xml.bind:jaxb-api", version = "latest.release" }
 junitBom = { module = "org.junit:junit-bom", version.ref = "junit" }
 junitJupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junitPlatform = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit" }
-skyscreamer = {  module = "org.skyscreamer:jsonassert", version.ref = "sky-screamer"}
-javax = {module = "javax.xml.bind:jaxb-api", version.ref = "javax-bind" }
+skyscreamer = {  module = "org.skyscreamer:jsonassert", version = "latest.release"}

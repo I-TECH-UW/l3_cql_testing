@@ -114,15 +114,6 @@
             "expression": "Numerator"
           }
         }
-      ],
-      "stratifier": [
-        {
-          "id": "IMMZ.IND.12.S",
-          "criteria": {
-            "language": "text/cql-identifier",
-            "expression": "Stratification"
-          }
-        }
       ]
     }
   ]
