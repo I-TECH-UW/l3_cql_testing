@@ -77,12 +77,7 @@
         },
         "status": "completed",
         "isSubpotent": false,
-        "occurrenceDateTime": "2020-01-05",
-        "protocolApplied": [
-          {
-            "doseNumberPositiveInt": 1
-          }
-        ]
+        "occurrenceDateTime": "2020-01-05"
       }
     }
   ]
