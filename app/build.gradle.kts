@@ -11,6 +11,9 @@ plugins {
     application
 }
 
+repositories {
+    mavenCentral()
+}
 
 dependencies {
     // This dependency is used by the application.
@@ -18,9 +21,12 @@ dependencies {
     implementation(libs.clinicalReasoningCql)
     implementation(libs.clinicalReasoningUtility)
     implementation(libs.clinicalReasoningTest)
+    implementation(libs.clinicalReasoningJackson)
+    implementation (libs.javax)
     implementation(platform(libs.junitBom))
     implementation(libs.junitJupiter)
     implementation(libs.junitPlatform)
+    implementation(libs.skyscreamer)
 }
 
 // Apply a specific Java toolchain to ease working on different environments.

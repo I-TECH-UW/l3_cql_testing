@@ -1,0 +1,84 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "P123456",
+        "identifier": [
+          {
+            "value": "123456"
+          }
+        ],
+        "name": [
+          {
+            "text": "Test Patient",
+            "family": "Patient",
+            "given": [
+              "Test"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1990-03-02"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "UGX243XFDGDSSF",
+        "identifier": [
+          {
+            "value": "UGX243XFDGDSSF"
+          }
+        ],
+        "name": [
+          {
+            "family": "Abert",
+            "given": [
+              "Namanya"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1991-03-26"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Immunization",
+        "id": "c48c8d2e-0e70-4c96-98c2-abcc96a1e76a",
+        "extension": [
+          {
+            "url": "http://smart.who.int/immunizations-measles/StructureDefinition/sg-ext-administeredProduct",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "20009060/2",
+                  "system": "http://smart.who.int/immunizations-measles/CodeSystem/VaccineProducts"
+                }
+              ]
+            }
+          }
+        ],
+        "vaccineCode": {
+          "coding": [
+            {
+              "code": "XM28X5",
+              "system": "http://id.who.int/icd/release/11/mms"
+            }
+          ]
+        },
+        "lotNumber": "lot123",
+        "expirationDate": "2023-10-01",
+        "patient": {
+          "reference": "Patient/UGX243XFDGDSSF"
+        },
+        "status": "completed",
+        "isSubpotent": false,
+        "occurrenceDateTime": "2020-01-05"
+      }
+    }
+  ]
+}
